@@ -51,6 +51,7 @@
     <Compile Include="Common\IAuditableEntity.cs" />
     <Compile Include="Common\IEntity.cs" />
     <Compile Include="Country.cs" />
+    <Compile Include="IEmployeeContext.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="EmployeeContext.cs" />
   </ItemGroup>

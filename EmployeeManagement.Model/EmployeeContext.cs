@@ -6,13 +6,13 @@ using System.Threading;
 
 namespace EmployeeManagement.Model
 {
-    public class EmployeeContext : DbContext
-    { 
+    public class EmployeeContext : DbContext, IEmployeeContext
+    {
 
         public EmployeeContext()
             : base("Name=EmployeeContext")
         {
-            this.Configuration.LazyLoadingEnabled = false; 
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Person> Persons { get; set; }
@@ -20,7 +20,7 @@ namespace EmployeeManagement.Model
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();  
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
         }
 

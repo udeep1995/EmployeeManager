@@ -5,17 +5,18 @@ using System.Linq;
 
 namespace EmployeeManagement.Service
 {
-    public class CountryService 
+    public class CountryService : ICountryService
     {
-        EmployeeContext _context;
-        
-        public CountryService()
+        IEmployeeContext _context;
+
+        public CountryService(IEmployeeContext _context)
         {
-            _context = new EmployeeContext();
+            this._context = _context;
         }
 
-        public Country GetById(int Id) {
-            return _context.Countries.FirstOrDefault(x=>x.Id == Id);
+        public Country GetById(int Id)
+        {
+            return _context.Countries.FirstOrDefault(x => x.Id == Id);
         }
 
         public void Create(Country entity)
@@ -33,7 +34,8 @@ namespace EmployeeManagement.Service
         public void Update(Country entity)
         {
             if (entity == null) throw new ArgumentNullException("entity");
-            _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            //_context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            _context.Countries.SingleOrDefault(x => x.Id == entity.Id).Name = entity.Name;
             _context.SaveChanges();
         }
 

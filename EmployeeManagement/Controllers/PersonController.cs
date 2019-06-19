@@ -7,12 +7,12 @@ namespace EmployeeManagement.Controllers
 {
     public class PersonController : Controller
     {
-        PersonService _PersonService;
-        CountryService _CountryService;
-        public PersonController()
+        IPersonService _PersonService;
+        ICountryService _CountryService;
+        public PersonController(IPersonService _personService, ICountryService _countryService)
         {
-            _PersonService = new PersonService();
-            _CountryService = new CountryService();
+            this._PersonService = _personService;
+            this._CountryService = _countryService;
         }
 
         // GET: /Person/

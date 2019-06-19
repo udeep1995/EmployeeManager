@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CountryService.cs" />
+    <Compile Include="ICountryService.cs" />
+    <Compile Include="IPersonService.cs" />
     <Compile Include="PersonService.cs" />
   </ItemGroup>
   <ItemGroup>

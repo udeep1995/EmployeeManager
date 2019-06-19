@@ -6,20 +6,21 @@ using System.Linq;
 
 namespace EmployeeManagement.Service
 {
-    public class PersonService 
+    public class PersonService : IPersonService
     {
-        EmployeeContext _context;
-        public PersonService()
+        IEmployeeContext _context;
+        public PersonService(IEmployeeContext _context)
         {
-            _context = new EmployeeContext();
+            this._context = _context;
         }
 
         public IEnumerable<Person> GetAll()
         {
-            return _context.Persons.Include(x => x.Country).ToList(); 
+            return _context.Persons.Include(x => x.Country).ToList();
         }
 
-        public Person GetById(long Id) {
+        public Person GetById(long Id)
+        {
             return _context.Persons.FirstOrDefault(x => x.Id == Id);
         }
 
@@ -39,7 +40,8 @@ namespace EmployeeManagement.Service
         public void Update(Person entity)
         {
             if (entity == null) throw new ArgumentNullException("entity");
-            _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            // _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            _context.Countries.SingleOrDefault(x => x.Id == entity.Id).Name = entity.Name;
             _context.SaveChanges();
         }
 

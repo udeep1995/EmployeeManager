@@ -7,11 +7,11 @@ namespace EmployeeManagement.Controllers
     public class CountryController : Controller
     {
         //initialize service object
-        CountryService _CountryService;
+        ICountryService _CountryService;
 
-        public CountryController()
+        public CountryController(ICountryService _CountryService)
         {
-            _CountryService = new CountryService();
+            this._CountryService = _CountryService;
         }
 
         //
@@ -41,7 +41,6 @@ namespace EmployeeManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Country country)
         {
-
             // TODO: Add insert logic here
             if (ModelState.IsValid)
             {
