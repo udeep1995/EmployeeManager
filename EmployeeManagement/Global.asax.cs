@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Unity;
+using Unity.AspNet.Mvc;
 
 namespace EmployeeManagement
 {
@@ -16,6 +17,8 @@ namespace EmployeeManagement
             container.RegisterType<ICountryService, CountryService>();
             container.RegisterType<IPersonService, PersonService>();
             container.RegisterType<IEmployeeContext, EmployeeContext>();
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+
 
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);

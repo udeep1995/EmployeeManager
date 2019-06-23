@@ -16,7 +16,10 @@ namespace EmployeeManagement.Service
 
         public IEnumerable<Person> GetAll()
         {
-            return _context.Persons.Include(x => x.Country).ToList();
+            var persons = _context.Persons;
+            var list = persons.Include(x => x.Country).ToList();
+            return list;
+           // return _context.Persons.Include(x => x.Country).ToList();
         }
 
         public Person GetById(long Id)
@@ -41,8 +44,23 @@ namespace EmployeeManagement.Service
         {
             if (entity == null) throw new ArgumentNullException("entity");
             // _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-            _context.Countries.SingleOrDefault(x => x.Id == entity.Id).Name = entity.Name;
-            _context.SaveChanges();
+            Person person = _context.Persons.SingleOrDefault(x => x.Id == entity.Id);
+            if (person != null)
+            {
+
+                person.Name = entity.Name;
+                person.Phone = entity.Phone;
+                person.State = entity.State;
+                person.UpdatedBy = entity.UpdatedBy;
+                person.UpdatedDate = entity.UpdatedDate;
+                person.Address = entity.Address;
+                person.Country = entity.Country;
+                person.CountryId = entity.CountryId;
+                person.CreatedBy = entity.CreatedBy;
+                person.CreatedDate = entity.CreatedDate;
+
+                _context.SaveChanges();
+            }
         }
 
         public void Delete(Person entity)

@@ -40,6 +40,21 @@ namespace EmployeeManagement.Test
             Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
         }
         [TestMethod]
+        public void Create_InValidArgumentAs_ModelStateError_ShouldReturnViewResult()
+        {
+            ICountryService fakeService = new FakeCountryService();
+            // Arrange
+            CountryController cc = new CountryController(fakeService);
+            Country country = new Country();
+            cc.ModelState.AddModelError("Required", "Name is required");
+            // Act
+            var result = cc.Create(country);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+        }
+
+        [TestMethod]
         public void Edit_ValidArgumentAs_Country_ShouldReturnRedirectionToRouteResult()
         {
             ICountryService fakeService = new FakeCountryService();

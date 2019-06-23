@@ -35,8 +35,14 @@ namespace EmployeeManagement.Service
         {
             if (entity == null) throw new ArgumentNullException("entity");
             //_context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-            _context.Countries.SingleOrDefault(x => x.Id == entity.Id).Name = entity.Name;
-            _context.SaveChanges();
+            Country country = _context.Countries.SingleOrDefault(x => x.Id == entity.Id);
+            if(country!=null)
+            {
+                country.Name = entity.Name;
+                country.Persons = entity.Persons;
+                _context.SaveChanges();
+            }
+            
         }
 
         public void Delete(Country entity)
